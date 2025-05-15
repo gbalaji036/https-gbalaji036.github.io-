@@ -29,12 +29,35 @@
             background-color: white;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
+            position: relative;
         }
         
         header {
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             padding-bottom: 20px;
             border-bottom: 2px solid var(--secondary-color);
+        }
+        
+        .header-content {
+            flex: 1;
+        }
+        
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--secondary-color);
+            margin-left: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .profile-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(52, 152, 219, 0.3);
         }
         
         h1 {
@@ -44,10 +67,10 @@
         
         .contact-info {
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             gap: 20px;
             flex-wrap: wrap;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
         
         .contact-info div {
@@ -192,7 +215,17 @@
                 padding: 15px;
             }
             
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .profile-image {
+                margin: 20px auto 0;
+            }
+            
             .contact-info {
+                justify-content: center;
                 flex-direction: column;
                 align-items: center;
                 gap: 10px;
@@ -203,27 +236,31 @@
 <body>
     <div class="container">
         <header>
-            <h1>BALAJI KUMAR VARMA G</h1>
-            <div class="contact-info">
-                <div>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle>
-                    </svg>
-                    <span>123 Anywhere St., Any City</span>
-                </div>
-                <div>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                    </svg>
-                    <span>123-456-7890</span>
-                </div>
-                <div>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline>
-                    </svg>
-                    <span>balajikumarvarma768@gmail.com</span>
+            <div class="header-content">
+                <h1>BALAJI KUMAR VARMA G</h1>
+                <div class="contact-info">
+                    <div>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        <span>123 Anywhere St., Any City</span>
+                    </div>
+                    <div>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                        <span>123-456-7890</span>
+                    </div>
+                    <div>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                        <span>balajikumarvarma768@gmail.com</span>
+                    </div>
                 </div>
             </div>
+            <!-- Replace "profile.jpg" with your actual image file -->
+            <img src="profile.jpg" alt="Balaji Kumar Varma G" class="profile-image">
         </header>
         
         <section class="section">
