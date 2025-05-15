@@ -1,117 +1,326 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Resume - Balaji Kumar Varma G</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 40px;
-      background-color: #f9f9f9;
-      color: #333;
-    }
-
-    .container {
-      display: flex;
-      gap: 40px;
-      align-items: flex-start;
-    }
-
-    .content {
-      flex: 2;
-    }
-
-    .profile-img {
-      flex: 1;
-      max-width: 300px;
-    }
-
-    .profile-img img {
-      width: 100%;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    h1, h2 {
-      color: #0056b3;
-    }
-
-    .section {
-      margin-bottom: 30px;
-    }
-
-    .contact p {
-      margin: 2px 0;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balaji Kumar Varma G - Resume</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        
+        header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        .contact-info div {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .section {
+            margin: 30px 0;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .section:last-child {
+            border-bottom: none;
+        }
+        
+        h2 {
+            color: var(--secondary-color);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        h3 {
+            color: var(--primary-color);
+            margin-top: 20px;
+        }
+        
+        ul {
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .skill {
+            background-color: var(--light-color);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            transition: all 0.3s;
+        }
+        
+        .skill:hover {
+            background-color: var(--secondary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .languages-container {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .language {
+            position: relative;
+            padding: 5px 15px;
+            background-color: var(--light-color);
+            border-radius: 5px;
+        }
+        
+        .language::after {
+            content: '✓';
+            position: absolute;
+            right: -10px;
+            top: -10px;
+            background-color: var(--accent-color);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .language:hover::after {
+            opacity: 1;
+        }
+        
+        .experience-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-left: 3px solid var(--secondary-color);
+            transition: all 0.3s;
+        }
+        
+        .experience-item:hover {
+            background-color: rgba(52, 152, 219, 0.05);
+            transform: translateX(5px);
+        }
+        
+        .education-item {
+            margin-bottom: 20px;
+        }
+        
+        .toggle-btn {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+        
+        .toggle-btn:hover {
+            background-color: var(--primary-color);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                padding: 15px;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="content">
-      <h1>Balaji Kumar Varma G</h1>
-      <div class="contact">
-        <p><strong>Address:</strong> 123 Anywhere St., Any City</p>
-        <p><strong>Phone:</strong> 123-456-7890</p>
-        <p><strong>Email:</strong> balajikumarvarma768@gmail.com</p>
-      </div>
-
-      <div class="section">
-        <h2>Summary</h2>
-        <p>
-          Results-oriented Mechanical and Mechatronics Engineer seeking a challenging position to apply expertise in designing and implementing innovative solutions for complex engineering challenges. Proven track record of success in project management, problem-solving, and cross-functional collaboration. Adept at utilising cutting-edge technologies to optimise processes and enhance overall efficiency.
-        </p>
-      </div>
-
-      <div class="section">
-        <h2>Work Experience</h2>
-        <p><strong>Kenai Technologies</strong><br>
-        <em>Jan 2024 - Present</em></p>
-        <ul>
-          <li>Led development of an advanced automation system, achieving a 15% increase in operational efficiency.</li>
-          <li>Streamlined manufacturing processes, reducing production costs by 10%.</li>
-          <li>Implemented preventive maintenance strategies, resulting in a 20% decrease in equipment downtime.</li>
-        </ul>
-      </div>
-
-      <div class="section">
-        <h2>Education</h2>
-        <p><strong>Bachelor of Computer Science Engineering</strong><br>
-        <em>Aug 2023 - 2027</em><br>
-        BMS Institute of Technology</p>
-        <p>Major in Automotive Technology.<br>
-        Thesis on "Technological Advancements within the current Mechatronics Industry”.</p>
-      </div>
-
-      <div class="section">
-        <h2>Technical Skills</h2>
-        <ul>
-          <li>OOPs with Java</li>
-          <li>DSA</li>
-          <li>DBMS</li>
-          <li>Operating Systems</li>
-          <li>Web Development</li>
-        </ul>
-      </div>
-
-      <div class="section">
-        <h2>Languages</h2>
-        <p>C,Python,SQL</p>
-      </div>
-
-      <div class="section">
-        <h2>Certifications</h2>
-        <ul>
-          <li>Java Core Principles</li>
-          <li>Cloud Management</li>
-          <li>Graphic Designer</li>
-        </ul>
-      </div>
+    <div class="container">
+        <header>
+            <h1>BALAJI KUMAR VARMA G</h1>
+            <div class="contact-info">
+                <div>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    <span>123 Anywhere St., Any City</span>
+                </div>
+                <div>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                    <span>123-456-7890</span>
+                </div>
+                <div>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    <span>balajikumarvarma768@gmail.com</span>
+                </div>
+            </div>
+        </header>
+        
+        <section class="section">
+            <h2>SUMMARY</h2>
+            <p>Results-oriented Mechanical and Mechatronics Engineer seeking a challenging position to apply expertise in designing and implementing innovative solutions for complex engineering challenges. Proven track record of success in project management, problem-solving, and cross-functional collaboration. Adept at utilising cutting-edge technologies to optimise processes and enhance overall efficiency.</p>
+        </section>
+        
+        <section class="section">
+            <h2>WORK EXPERIENCE</h2>
+            <div class="experience-item">
+                <h3>Kenai Technologies</h3>
+                <ul>
+                    <li>Led development of an advanced automation system, achieving a 15% increase in operational efficiency.</li>
+                    <li>Streamlined manufacturing processes, reducing production costs by 10%.</li>
+                    <li>Implemented preventive maintenance strategies, resulting in a 20% decrease in equipment downtime.</li>
+                </ul>
+            </div>
+            <button class="toggle-btn" onclick="toggleSection('more-experience')">Show More Experience</button>
+            <div id="more-experience" class="hidden">
+                <!-- Additional experience items can be added here -->
+                <div class="experience-item">
+                    <h3>Another Company</h3>
+                    <ul>
+                        <li>Sample responsibility 1</li>
+                        <li>Sample responsibility 2</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2>EDUCATION</h2>
+            <div class="education-item">
+                <h3>Bachelor of Computer Science Engineering</h3>
+                <p><strong>BMS INSTITUE OF TECHNOLOGY</strong></p>
+                <ul>
+                    <li>Major in Automotive Technology.</li>
+                    <li>Thesis on "Technological Advancements within the current Mechatronics Industry".</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2>ADDITIONAL INFORMATION</h2>
+            <h3>Technical Skills</h3>
+            <div class="skills-container">
+                <div class="skill">Oops with Java</div>
+                <div class="skill">DSA</div>
+                <div class="skill">DBMS</div>
+                <div class="skill">OS</div>
+                <div class="skill">Web Development</div>
+            </div>
+            
+            <h3>Languages</h3>
+            <div class="languages-container">
+                <div class="language">English</div>
+                <div class="language">Telugu</div>
+                <div class="language">Hindi</div>
+                <div class="language">Kannada</div>
+            </div>
+            
+            <h3>Certifications</h3>
+            <ul>
+                <li>Java Core principles</li>
+                <li>Cloud Management</li>
+                <li>Graphic Designer</li>
+            </ul>
+        </section>
     </div>
 
-    <div class="profile-img">
-      <img src="profile.jpeg" alt="Profile Photo">
-    </div>
-  </div>
+    <script>
+        function toggleSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            const button = document.querySelector(`.toggle-btn[onclick="toggleSection('${sectionId}')"]`);
+            
+            if (section.classList.contains('hidden')) {
+                section.classList.remove('hidden');
+                button.textContent = 'Hide Section';
+            } else {
+                section.classList.add('hidden');
+                button.textContent = 'Show More Experience';
+            }
+        }
+        
+        // Add animation to skills on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const skills = document.querySelectorAll('.skill');
+            skills.forEach((skill, index) => {
+                setTimeout(() => {
+                    skill.style.opacity = '1';
+                    skill.style.transform = 'translateY(0)';
+                }, index * 100);
+                skill.style.opacity = '0';
+                skill.style.transform = 'translateY(20px)';
+                skill.style.transition = 'all 0.5s ' + (index * 0.1) + 's';
+            });
+        });
+    </script>
 </body>
 </html>
