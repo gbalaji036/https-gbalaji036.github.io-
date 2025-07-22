@@ -3,361 +3,726 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Balaji Kumar Varma G - Resume</title>
-    <style>
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #e74c3c;
-            --light-color: #ecf0f1;
-            --dark-color: #2c3e50;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            color: #333;
-            background-color: #f5f5f5;
-        }
-        
-        .container {
-            max-width: 900px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: white;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            position: relative;
-        }
-        
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 20px;
-            border-bottom: 2px solid var(--secondary-color);
-        }
-        
-        .header-content {
-            flex: 1;
-        }
-        
-        .profile-image {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--secondary-color);
-            margin-left: 20px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .profile-image:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(52, 152, 219, 0.3);
-        }
-        
-        h1 {
-            color: var(--primary-color);
-            margin-bottom: 5px;
-        }
-        
-        .contact-info {
-            display: flex;
-            justify-content: flex-start;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-bottom: 10px;
-        }
-        
-        .contact-info div {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .section {
-            margin: 30px 0;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .section:last-child {
-            border-bottom: none;
-        }
-        
-        h2 {
-            color: var(--secondary-color);
-            position: relative;
-            padding-bottom: 10px;
-        }
-        
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background-color: var(--accent-color);
-        }
-        
-        h3 {
-            color: var(--primary-color);
-            margin-top: 20px;
-        }
-        
-        ul {
-            padding-left: 20px;
-        }
-        
-        li {
-            margin-bottom: 8px;
-        }
-        
-        .skills-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 15px;
-        }
-        
-        .skill {
-            background-color: var(--light-color);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9em;
-            transition: all 0.3s;
-        }
-        
-        .skill:hover {
-            background-color: var(--secondary-color);
-            color: white;
-            transform: translateY(-3px);
-        }
-        
-        .languages-container {
-            display: flex;
-            gap: 15px;
-            margin-top: 15px;
-        }
-        
-        .language {
-            position: relative;
-            padding: 5px 15px;
-            background-color: var(--light-color);
-            border-radius: 5px;
-        }
-        
-        .language::after {
-            content: '✓';
-            position: absolute;
-            right: -10px;
-            top: -10px;
-            background-color: var(--accent-color);
-            color: white;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8em;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        
-        .language:hover::after {
-            opacity: 1;
-        }
-        
-        .experience-item {
-            margin-bottom: 20px;
-            padding: 15px;
-            border-left: 3px solid var(--secondary-color);
-            transition: all 0.3s;
-        }
-        
-        .experience-item:hover {
-            background-color: rgba(52, 152, 219, 0.05);
-            transform: translateX(5px);
-        }
-        
-        .education-item {
-            margin-bottom: 20px;
-        }
-        
-        .toggle-btn {
-            background-color: var(--secondary-color);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: all 0.3s;
-        }
-        
-        .toggle-btn:hover {
-            background-color: var(--primary-color);
-        }
-        
-        .hidden {
-            display: none;
-        }
-        
-        @media (max-width: 768px) {
-            .container {
-                margin: 10px;
-                padding: 15px;
-            }
-            
-            header {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .profile-image {
-                margin: 20px auto 0;
-            }
-            
-            .contact-info {
-                justify-content: center;
-                flex-direction: column;
-                align-items: center;
-                gap: 10px;
-            }
-        }
-    </style>
+    <title>Smart Shoping - Complete Retail Management System</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- PDF generation and QR code libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.3/qrcode.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="header-content">
-                <h1>BALAJI KUMAR VARMA G</h1>
-                <div class="contact-info">
-                    <div>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle>
-                        </svg>
-                        <span>123 Anywhere St., Any City</span>
-                    </div>
-                    <div>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                        </svg>
-                        <span>123-456-7890</span>
-                    </div>
-                    <div>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline>
-                        </svg>
-                        <span>balajikumarvarma768@gmail.com</span>
-                    </div>
-                </div>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <h2>🏪 SuperMart POS</h2>
             </div>
-            <!-- Replace "profile.jpg" with your actual image file -->
-            <img src="profile.jpg" alt="Balaji Kumar Varma G" class="profile-image">
-        </header>
-        
-        <section class="section">
-            <h2>SUMMARY</h2>
-            <p>Results-oriented Mechanical and Mechatronics Engineer seeking a challenging position to apply expertise in designing and implementing innovative solutions for complex engineering challenges. Proven track record of success in project management, problem-solving, and cross-functional collaboration. Adept at utilising cutting-edge technologies to optimise processes and enhance overall efficiency.</p>
-        </section>
-        
-        <section class="section">
-            <h2>WORK EXPERIENCE</h2>
-            <div class="experience-item">
-                <h3>Kenai Technologies</h3>
-                <ul>
-                    <li>Led development of an advanced automation system, achieving a 15% increase in operational efficiency.</li>
-                    <li>Streamlined manufacturing processes, reducing production costs by 10%.</li>
-                    <li>Implemented preventive maintenance strategies, resulting in a 20% decrease in equipment downtime.</li>
-                </ul>
-            </div>
-            <button class="toggle-btn" onclick="toggleSection('more-experience')">Show More Experience</button>
-            <div id="more-experience" class="hidden">
-                <!-- Additional experience items can be added here -->
-                <div class="experience-item">
-                    <h3>Another Company</h3>
-                    <ul>
-                        <li>Sample responsibility 1</li>
-                        <li>Sample responsibility 2</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-        
-        <section class="section">
-            <h2>EDUCATION</h2>
-            <div class="education-item">
-                <h3>Bachelor of Computer Science Engineering</h3>
-                <p><strong>BMS INSTITUE OF TECHNOLOGY</strong></p>
-                <ul>
-                    <li>Major in Automotive Technology.</li>
-                    <li>Thesis on "Technological Advancements within the current Mechatronics Industry".</li>
-                </ul>
-            </div>
-        </section>
-        
-        <section class="section">
-            <h2>ADDITIONAL INFORMATION</h2>
-            <h3>Technical Skills</h3>
-            <div class="skills-container">
-                <div class="skill">Oops with Java</div>
-                <div class="skill">DSA</div>
-                <div class="skill">DBMS</div>
-                <div class="skill">OS</div>
-                <div class="skill">Web Development</div>
-            </div>
-            
-            <h3>Languages</h3>
-            <div class="languages-container">
-                <div class="language">English</div>
-                <div class="language">Telugu</div>
-                <div class="language">Hindi</div>
-                <div class="language">Kannada</div>
-            </div>
-            
-            <h3>Certifications</h3>
-            <ul>
-                <li>Java Core principles</li>
-                <li>Cloud Management</li>
-                <li>Graphic Designer</li>
+            <ul class="nav-links">
+                <li><a href="#" onclick="showSection('dashboard')">Dashboard</a></li>
+                <li><a href="#" onclick="showSection('inventory')">Inventory</a></li>
+                <li><a href="#" onclick="showSection('billing')">Billing</a></li>
+                <li><a href="#" onclick="showSection('customers')">Customers</a></li>
+                <li><a href="#" onclick="showSection('categories')">Categories</a></li>
+                <li><a href="#" onclick="showSection('reports')">Reports</a></li>
             </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Welcome Section -->
+        <section id="welcome" class="hero">
+            <h1>Welcome to SuperMart POS</h1>
+            <p>Complete supermarket management with dual pricing system</p>
+            <div class="feature-highlights">
+                <div class="feature">📦 Unit-based pricing for packaged goods</div>
+                <div class="feature">⚖️ Weight-based pricing for fresh produce</div>
+                <div class="feature">📄 PDF receipts with UPI QR codes</div>
+                <div class="feature">📂 Custom category management</div>
+            </div>
+            <button class="cta-button" onclick="showSection('dashboard')">Get Started</button>
         </section>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="section hidden">
+            <div class="section-header">
+                <h2>📊 Dashboard Overview</h2>
+                <button class="refresh-btn" onclick="refreshDashboard()">🔄 Refresh</button>
+            </div>
+            
+            <div class="dashboard-grid">
+                <div class="card sales-card">
+                    <div class="card-icon">💰</div>
+                    <h3>Today's Sales</h3>
+                    <p class="big-number" id="todaySales">₹0</p>
+                </div>
+                <div class="card inventory-card">
+                    <div class="card-icon">📦</div>
+                    <h3>Total Products</h3>
+                    <p class="big-number" id="productCount">0</p>
+                </div>
+                <div class="card customer-card">
+                    <div class="card-icon">👥</div>
+                    <h3>Total Customers</h3>
+                    <p class="big-number" id="customerCount">0</p>
+                </div>
+                <div class="card alert-card">
+                    <div class="card-icon">⚠️</div>
+                    <h3>Low Stock Alerts</h3>
+                    <p class="big-number" id="lowStockAlerts">0</p>
+                </div>
+            </div>
+
+            <div class="quick-actions">
+                <h3>Quick Actions</h3>
+                <div class="action-buttons">
+                    <button class="action-btn" onclick="showSection('inventory')">
+                        <span class="icon">📦</span>
+                        Manage Inventory
+                    </button>
+                    <button class="action-btn" onclick="showSection('billing')">
+                        <span class="icon">🛒</span>
+                        New Sale
+                    </button>
+                    <button class="action-btn" onclick="showSection('categories')">
+                        <span class="icon">📂</span>
+                        Manage Categories
+                    </button>
+                    <button class="action-btn" onclick="showSection('customers')">
+                        <span class="icon">👥</span>
+                        Customer Management
+                    </button>
+                    <button class="action-btn" onclick="showSection('reports')">
+                        <span class="icon">📈</span>
+                        View Reports
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Enhanced Inventory Section -->
+        <section id="inventory" class="section hidden">
+            <div class="section-header">
+                <h2>📦 Inventory Management</h2>
+                <button class="primary-btn" onclick="showAddProductForm()">+ Add New Product</button>
+            </div>
+            
+            <div class="inventory-controls">
+                <div class="search-filter-section">
+                    <input type="text" id="productSearch" placeholder="🔍 Search products..." onkeyup="searchProducts()">
+                    <select id="categoryFilter" onchange="filterByCategory()">
+                        <option value="">All Categories</option>
+                    </select>
+                    <select id="pricingTypeFilter" onchange="filterByPricingType()">
+                        <option value="">All Pricing Types</option>
+                        <option value="unit">Unit-Based</option>
+                        <option value="weight">Weight-Based</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="products-container">
+                <table class="products-table" id="productsTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Product Details</th>
+                            <th>Category</th>
+                            <th>Pricing</th>
+                            <th>Stock</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productsTableBody">
+                        <!-- Products populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Enhanced Billing Section -->
+        <section id="billing" class="section hidden">
+            <div class="section-header">
+                <h2>🛒 Supermarket POS System</h2>
+                <div class="billing-header-controls">
+                    <button class="secondary-btn" onclick="clearBill()">🗑️ Clear Bill</button>
+                    <div class="bill-counter">Bill #<span id="billNumber">1001</span></div>
+                </div>
+            </div>
+            
+            <div class="billing-container">
+                <div class="billing-left">
+                    <div class="customer-section">
+                        <h3>👤 Customer Information</h3>
+                        <select id="customerSelect" onchange="selectCustomer()">
+                            <option value="">Walk-in Customer</option>
+                        </select>
+                        <button class="secondary-btn" onclick="addNewCustomerQuick()">+ New Customer</button>
+                    </div>
+
+                    <div class="product-search-section">
+                        <h3>🔍 Add Products to Bill</h3>
+                        <input type="text" id="billingProductSearch" placeholder="Search by name, category, or scan barcode..." onkeyup="searchProductsForBilling()">
+                        <div id="productSuggestions" class="suggestions-dropdown"></div>
+                    </div>
+
+                    <!-- Weight Input Section -->
+                    <div id="weightInputSection" class="weight-input-section hidden">
+                        <h3>⚖️ Weight-Based Product</h3>
+                        <div class="weight-input-container">
+                            <div class="selected-product-info" id="selectedProductInfo"></div>
+                            <div class="weight-controls">
+                                <label><strong>Enter Weight:</strong></label>
+                                <div class="weight-input-group">
+                                    <input type="number" id="weightInput" placeholder="0" step="0.001" min="0" onchange="calculateWeightPrice()">
+                                    <select id="weightUnit" onchange="calculateWeightPrice()">
+                                        <option value="grams">Grams</option>
+                                        <option value="kg">Kilograms</option>
+                                    </select>
+                                </div>
+                                <div class="price-display">
+                                    <span>Total Price: </span>
+                                    <span id="weightBasedPrice" class="price-highlight">₹0.00</span>
+                                </div>
+                                <div class="weight-action-buttons">
+                                    <button class="primary-btn" onclick="addWeightBasedProductToBill()">Add to Bill</button>
+                                    <button class="secondary-btn" onclick="cancelWeightInput()">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="billing-right">
+                    <div class="bill-summary">
+                        <h3>📄 Bill Summary</h3>
+                        <div class="bill-items-container">
+                            <div class="bill-items" id="billItems">
+                                <div class="empty-bill">
+                                    <div class="empty-icon">🛒</div>
+                                    <p>No items added yet</p>
+                                    <small>Search and add products to start billing</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bill-totals">
+                            <div class="total-line">
+                                <span>Subtotal:</span>
+                                <span id="subtotal">₹0.00</span>
+                            </div>
+                            <div class="total-line">
+                                <span>GST (5%):</span>
+                                <span id="taxAmount">₹0.00</span>
+                            </div>
+                            <div class="total-line final-total">
+                                <span>TOTAL:</span>
+                                <span id="finalTotal">₹0.00</span>
+                            </div>
+                        </div>
+                        
+                        <div class="checkout-section">
+                            <div class="payment-methods">
+                                <label><strong>Payment Method:</strong></label>
+                                <div class="payment-options">
+                                    <label class="payment-option">
+                                        <input type="radio" name="paymentMethod" value="cash" checked onchange="toggleUPISettings()">
+                                        <span>💵 Cash</span>
+                                    </label>
+                                    <label class="payment-option">
+                                        <input type="radio" name="paymentMethod" value="card" onchange="toggleUPISettings()">
+                                        <span>💳 Card</span>
+                                    </label>
+                                    <label class="payment-option">
+                                        <input type="radio" name="paymentMethod" value="upi" onchange="toggleUPISettings()">
+                                        <span>📱 UPI</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- UPI Settings Section -->
+                            <div id="upiSettings" class="upi-settings hidden">
+                                <h4>📱 UPI Payment Details</h4>
+                                <div class="form-group">
+                                    <label>Store UPI ID *</label>
+                                    <input type="text" id="storeUpiId" placeholder="yourstore@paytm" value="supermart@paytm">
+                                    <small class="form-hint">This will be used to generate payment QR code</small>
+                                </div>
+                                <div class="form-group">
+                                    <label>Store Name</label>
+                                    <input type="text" id="storeName" placeholder="SuperMart Store" value="SuperMart">
+                                </div>
+                            </div>
+
+                            <!-- Receipt Options -->
+                            <div class="receipt-options">
+                                <h4>📄 Receipt Options</h4>
+                                <div class="receipt-checkboxes">
+                                    <label class="checkbox-option">
+                                        <input type="checkbox" id="generatePDF" checked>
+                                        <span>📄 Generate PDF Receipt</span>
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="checkbox" id="includeQR" checked>
+                                        <span>📱 Include UPI QR Code</span>
+                                    </label>
+                                    <label class="checkbox-option">
+                                        <input type="checkbox" id="emailReceipt">
+                                        <span>📧 Email Receipt (if customer email available)</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <button class="checkout-btn" onclick="processSale()" id="checkoutBtn">
+                                💳 Complete Sale - ₹0.00
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Customer Management Section -->
+        <section id="customers" class="section hidden">
+            <div class="section-header">
+                <h2>👥 Customer Management</h2>
+                <button class="primary-btn" onclick="showAddCustomerForm()">+ Add Customer</button>
+            </div>
+            
+            <div class="search-bar">
+                <input type="text" id="customerSearch" placeholder="🔍 Search customers by name, phone, or email..." onkeyup="searchCustomers()">
+            </div>
+
+            <div class="customers-container">
+                <div class="customers-grid" id="customersGrid">
+                    <!-- Customers populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Enhanced Categories Management Section -->
+        <section id="categories" class="section hidden">
+            <div class="section-header">
+                <h2>📂 Category Management</h2>
+                <div class="section-header-actions">
+                    <button class="secondary-btn" onclick="exportCategories()">📤 Export</button>
+                    <button class="primary-btn" onclick="showAddCategoryForm()">+ Add Category</button>
+                </div>
+            </div>
+            
+            <!-- Category Statistics Overview -->
+            <div class="categories-overview">
+                <div class="category-stats-grid">
+                    <div class="stat-card category-stat">
+                        <div class="stat-icon">📂</div>
+                        <div class="stat-info">
+                            <h3>Total Categories</h3>
+                            <p class="stat-number" id="totalCategories">0</p>
+                            <small class="stat-trend">Active categories</small>
+                        </div>
+                    </div>
+                    <div class="stat-card product-stat">
+                        <div class="stat-icon">📦</div>
+                        <div class="stat-info">
+                            <h3>Products Assigned</h3>
+                            <p class="stat-number" id="productsAssigned">0</p>
+                            <small class="stat-trend">Across all categories</small>
+                        </div>
+                    </div>
+                    <div class="stat-card recent-stat">
+                        <div class="stat-icon">🆕</div>
+                        <div class="stat-info">
+                            <h3>Recently Added</h3>
+                            <p class="stat-number" id="recentCategories">0</p>
+                            <small class="stat-trend">Last 7 days</small>
+                        </div>
+                    </div>
+                    <div class="stat-card revenue-stat">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-info">
+                            <h3>Top Performer</h3>
+                            <p class="stat-number" id="topCategory">-</p>
+                            <small class="stat-trend">By sales volume</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category Filters and Search -->
+            <div class="category-controls">
+                <div class="search-filter-row">
+                    <input type="text" id="categorySearch" placeholder="🔍 Search categories..." onkeyup="searchCategories()">
+                    <select id="categorySortBy" onchange="sortCategories()">
+                        <option value="name">Sort by Name</option>
+                        <option value="products">Sort by Product Count</option>
+                        <option value="recent">Sort by Recent</option>
+                        <option value="color">Sort by Color</option>
+                    </select>
+                    <button class="secondary-btn" onclick="resetCategoryFilters()">🔄 Reset</button>
+                </div>
+                
+                <!-- Quick Category Creation Templates -->
+                <div class="quick-templates">
+                    <h4>🚀 Quick Templates:</h4>
+                    <div class="template-buttons">
+                        <button class="template-btn" onclick="createQuickCategory('Frozen Foods', '❄️', '#3182ce')">❄️ Frozen Foods</button>
+                        <button class="template-btn" onclick="createQuickCategory('Personal Care', '🧴', '#9f7aea')">🧴 Personal Care</button>
+                        <button class="template-btn" onclick="createQuickCategory('Organic Products', '🌱', '#48bb78')">🌱 Organic</button>
+                        <button class="template-btn" onclick="createQuickCategory('Baby Care', '👶', '#f56565')">👶 Baby Care</button>
+                        <button class="template-btn" onclick="createQuickCategory('Cleaning Supplies', '🧽', '#ed8936')">🧽 Cleaning</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Categories Grid Display -->
+            <div class="categories-container">
+                <div class="categories-grid" id="categoriesGrid">
+                    <!-- Categories will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Reports Section -->
+        <section id="reports" class="section hidden">
+            <div class="section-header">
+                <h2>📈 Sales Reports & Analytics</h2>
+                <select id="reportPeriod" onchange="generateReport()">
+                    <option value="today">Today</option>
+                    <option value="week">This Week</option>
+                    <option value="month">This Month</option>
+                    <option value="year">This Year</option>
+                </select>
+            </div>
+            
+            <div class="reports-grid">
+                <div class="report-card">
+                    <h3>💰 Sales Summary</h3>
+                    <div id="salesSummary">
+                        <div class="report-stat">
+                            <span class="stat-label">Total Sales:</span>
+                            <span class="stat-value" id="reportTotalSales">₹0</span>
+                        </div>
+                        <div class="report-stat">
+                            <span class="stat-label">Total Orders:</span>
+                            <span class="stat-value" id="reportTotalOrders">0</span>
+                        </div>
+                        <div class="report-stat">
+                            <span class="stat-label">Average Order:</span>
+                            <span class="stat-value" id="reportAvgOrder">₹0</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="report-card">
+                    <h3>🏆 Top Selling Products</h3>
+                    <div id="topProducts" class="top-products-list">
+                        <!-- Top products populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="report-card">
+                    <h3>⚠️ Low Stock Alert</h3>
+                    <div id="lowStockItems" class="low-stock-list">
+                        <!-- Low stock items populated by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="report-card">
+                    <h3>📊 Category Performance</h3>
+                    <div id="categoryPerformance" class="category-stats">
+                        <!-- Category performance populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Enhanced Add Product Modal -->
+    <div id="addProductModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>➕ Add New Product</h3>
+                <span class="close-btn" onclick="closeModal('addProductModal')">&times;</span>
+            </div>
+            <form id="addProductForm" onsubmit="addProduct(event)">
+                <div class="form-group">
+                    <label>Product Name *</label>
+                    <input type="text" id="productName" placeholder="Enter product name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Category *</label>
+                    <select id="productCategory" required>
+                        <option value="">Select Category</option>
+                    </select>
+                </div>
+                
+                <div class="pricing-type-section">
+                    <label><strong>Pricing Method *</strong></label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="pricingType" value="unit" checked onchange="togglePricingFields()">
+                            <span>📦 Per Unit/Piece (for packaged items)</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="pricingType" value="weight" onchange="togglePricingFields()">
+                            <span>⚖️ Per Weight (for fruits, vegetables, bulk items)</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div id="unitPricingFields">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Price per Unit (₹) *</label>
+                            <input type="number" id="productPricePerUnit" placeholder="0.00" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Quantity in Stock *</label>
+                            <input type="number" id="productQuantity" placeholder="0" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="weightPricingFields" class="hidden">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Price per KG (₹) *</label>
+                            <input type="number" id="productPricePerKg" placeholder="0.00" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Total Weight in Stock (KG) *</label>
+                            <input type="number" id="productWeightInStock" placeholder="0.000" step="0.001">
+                        </div>
+                    </div>
+                    <div class="info-text">
+                        <small>💡 Customers will enter weight in grams during billing, price will be calculated automatically</small>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Barcode</label>
+                    <input type="text" id="productBarcode" placeholder="Leave empty to auto-generate">
+                </div>
+                
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="productDescription" placeholder="Product description (optional)" rows="2"></textarea>
+                </div>
+                
+                <button type="submit" class="primary-btn full-width">➕ Add Product</button>
+            </form>
+        </div>
     </div>
 
-    <script>
-        function toggleSection(sectionId) {
-            const section = document.getElementById(sectionId);
-            const button = document.querySelector(`.toggle-btn[onclick="toggleSection('${sectionId}')"]`);
+    <!-- Enhanced Add Category Modal -->
+    <div id="addCategoryModal" class="modal hidden">
+        <div class="modal-content large-modal">
+            <div class="modal-header">
+                <h3>📂 Add New Category</h3>
+                <span class="close-btn" onclick="closeModal('addCategoryModal')">&times;</span>
+            </div>
             
-            if (section.classList.contains('hidden')) {
-                section.classList.remove('hidden');
-                button.textContent = 'Hide Section';
-            } else {
-                section.classList.add('hidden');
-                button.textContent = 'Show More Experience';
-            }
-        }
-        
-        // Add animation to skills on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            const skills = document.querySelectorAll('.skill');
-            skills.forEach((skill, index) => {
-                setTimeout(() => {
-                    skill.style.opacity = '1';
-                    skill.style.transform = 'translateY(0)';
-                }, index * 100);
-                skill.style.opacity = '0';
-                skill.style.transform = 'translateY(20px)';
-                skill.style.transition = 'all 0.5s ' + (index * 0.1) + 's';
-            });
-        });
-    </script>
+            <!-- Category Preview -->
+            <div class="category-preview" id="categoryPreview">
+                <h4>📋 Preview:</h4>
+                <div class="preview-card">
+                    <div class="preview-icon" id="previewIcon">📂</div>
+                    <div class="preview-info">
+                        <h5 id="previewName">Category Name</h5>
+                        <p id="previewDescription">Category description will appear here</p>
+                    </div>
+                </div>
+            </div>
+            
+            <form id="addCategoryForm" onsubmit="addCategory(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Category Name *</label>
+                        <input type="text" id="categoryName" placeholder="Enter category name" required oninput="updatePreview()">
+                        <small class="form-hint">Examples: Frozen Foods, Personal Care, Organic Products</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Category Type</label>
+                        <select id="categoryType" onchange="suggestIconsForType()">
+                            <option value="general">General</option>
+                            <option value="food">Food & Beverages</option>
+                            <option value="health">Health & Personal Care</option>
+                            <option value="home">Home & Garden</option>
+                            <option value="electronics">Electronics</option>
+                            <option value="clothing">Clothing & Accessories</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Category Icon</label>
+                    <div class="icon-selector">
+                        <div class="icon-suggestions" id="iconSuggestions">
+                            <h5>💡 Suggested Icons:</h5>
+                            <div class="suggested-icons" id="suggestedIcons"></div>
+                        </div>
+                        
+                        <h5>🎨 All Icons:</h5>
+                        <div class="icon-grid" id="allIcons">
+                            <button type="button" class="icon-option selected" onclick="selectIcon('📂')" data-icon="📂" title="Folder">📂</button>
+                            <button type="button" class="icon-option" onclick="selectIcon('📱')" data-icon="📱" title="Electronics">📱</button>
+                            <button type="button" class="icon-option" onclick="selectIcon('🍎')" data-icon="🍎" title="Fruits">🍎</button>
+                            <button type="button" class="icon-option" onclick="selectIcon('🥛')" data-icon="🥛" title="Dairy">🥛</button>
+                            <button type="button" class="icon-option" onclick="selectIcon('🍞')" data-icon="🍞" title="Bakery">🍞</button>
+                            <button type="button" class="icon-option" onclick="selectIcon('🥤')" data-icon="🥤" title="Beverages">🥤</button>
+                            <button type="button" class="icon-option" onclick="selectIcon('🧴')" data-icon="🧴" title="Personal Care">🧴</button>
+                            <button type="button" class="icon-option" onclick="selectIcon('❄️')" data-icon="❄️" title="Frozen">❄️</button>
+                            <button type="button" class="icon-option" onclick="selectIcon('🌱')" data-icon="🌱" title="Organic">🌱</button>
+                            <button type="button" class="icon-option" onclick="selectIcon('🍪')" data-icon="🍪" title="Snacks">🍪</button>
+                            <button type="button" class="icon-option" onclick="selectIcon('🥩')" data-icon="🥩" title="Meat">🥩</button>
+                            <button type="button" class="icon-option" onclick="selectIcon('🧽')" data-icon="🧽" title="Cleaning">🧽</button>
+                            <button type="button" class="icon-option" onclick="selectIcon('👶')" data-icon="👶" title="Baby Care">👶</button>
+                            <button type="button" class="icon-option" onclick="selectIcon('🍕')" data-icon="🍕" title="Fast Food">🍕</button>
+                            <button type="button" class="icon-option" onclick="selectIcon('🥕')" data-icon="🥕" title="Vegetables">🥕</button>
+                            <button type="button" class="icon-option" onclick="selectIcon('🧊')" data-icon="🧊" title="Ice/Frozen">🧊</button>
+                            <button type="button" class="icon-option" onclick="selectIcon('💊')" data-icon="💊" title="Medicine">💊</button>
+                            <button type="button" class="icon-option" onclick="selectIcon('🏠')" data-icon="🏠" title="Home">🏠</button>
+                        </div>
+                        
+                        <input type="hidden" id="selectedIcon" value="📂">
+                        <div class="selected-icon-display">
+                            Selected: <span id="selectedIconDisplay">📂</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="categoryDescription" placeholder="Brief description of this category (optional)" rows="2" oninput="updatePreview()"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Category Color Theme</label>
+                    <div class="color-selector">
+                        <div class="color-presets">
+                            <h5>🎨 Popular Colors:</h5>
+                            <button type="button" class="color-option selected" onclick="selectColor('#667eea')" style="background: #667eea;" data-color="#667eea" title="Blue"></button>
+                            <button type="button" class="color-option" onclick="selectColor('#48bb78')" style="background: #48bb78;" data-color="#48bb78" title="Green"></button>
+                            <button type="button" class="color-option" onclick="selectColor('#ed8936')" style="background: #ed8936;" data-color="#ed8936" title="Orange"></button>
+                            <button type="button" class="color-option" onclick="selectColor('#e53e3e')" style="background: #e53e3e;" data-color="#e53e3e" title="Red"></button>
+                            <button type="button" class="color-option" onclick="selectColor('#9f7aea')" style="background: #9f7aea;" data-color="#9f7aea" title="Purple"></button>
+                            <button type="button" class="color-option" onclick="selectColor('#38b2ac')" style="background: #38b2ac;" data-color="#38b2ac" title="Teal"></button>
+                        </div>
+                        <div class="custom-color-input">
+                            <label>Custom Color:</label>
+                            <input type="color" id="customColor" onchange="selectCustomColor()" title="Pick custom color">
+                        </div>
+                    </div>
+                    <input type="hidden" id="selectedColor" value="#667eea">
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="secondary-btn" onclick="closeModal('addCategoryModal')">Cancel</button>
+                    <button type="submit" class="primary-btn">📂 Create Category</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Enhanced Edit Category Modal -->
+    <div id="editCategoryModal" class="modal hidden">
+        <div class="modal-content large-modal">
+            <div class="modal-header">
+                <h3>✏️ Edit Category</h3>
+                <span class="close-btn" onclick="closeModal('editCategoryModal')">&times;</span>
+            </div>
+            
+            <form id="editCategoryForm" onsubmit="updateCategory(event)">
+                <input type="hidden" id="editCategoryId">
+                
+                <div class="form-group">
+                    <label>Category Name *</label>
+                    <input type="text" id="editCategoryName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Category Icon</label>
+                    <div class="icon-selector">
+                        <div class="icon-grid">
+                            <button type="button" class="icon-option" onclick="selectEditIcon('📂')" data-icon="📂">📂</button>
+                            <button type="button" class="icon-option" onclick="selectEditIcon('📱')" data-icon="📱">📱</button>
+                            <button type="button" class="icon-option" onclick="selectEditIcon('🍎')" data-icon="🍎">🍎</button>
+                            <button type="button" class="icon-option" onclick="selectEditIcon('🥛')" data-icon="🥛">🥛</button>
+                            <button type="button" class="icon-option" onclick="selectEditIcon('🍞')" data-icon="🍞">🍞</button>
+                            <button type="button" class="icon-option" onclick="selectEditIcon('🥤')" data-icon="🥤">🥤</button>
+                            <button type="button" class="icon-option" onclick="selectEditIcon('🧴')" data-icon="🧴">🧴</button>
+                            <button type="button" class="icon-option" onclick="selectEditIcon('❄️')" data-icon="❄️">❄️</button>
+                            <button type="button" class="icon-option" onclick="selectEditIcon('🌱')" data-icon="🌱">🌱</button>
+                            <button type="button" class="icon-option" onclick="selectEditIcon('🍪')" data-icon="🍪">🍪</button>
+                            <button type="button" class="icon-option" onclick="selectEditIcon('🥩')" data-icon="🥩">🥩</button>
+                            <button type="button" class="icon-option" onclick="selectEditIcon('🧽')" data-icon="🧽">🧽</button>
+                            <button type="button" class="icon-option" onclick="selectEditIcon('👶')" data-icon="👶">👶</button>
+                        </div>
+                        <input type="hidden" id="editSelectedIcon">
+                        <div class="selected-icon-display">
+                            Selected: <span id="editSelectedIconDisplay">📂</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="editCategoryDescription" rows="2"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Category Color</label>
+                    <div class="color-selector">
+                        <div class="color-presets">
+                            <button type="button" class="color-option" onclick="selectEditColor('#667eea')" style="background: #667eea;" data-color="#667eea"></button>
+                            <button type="button" class="color-option" onclick="selectEditColor('#48bb78')" style="background: #48bb78;" data-color="#48bb78"></button>
+                            <button type="button" class="color-option" onclick="selectEditColor('#ed8936')" style="background: #ed8936;" data-color="#ed8936"></button>
+                            <button type="button" class="color-option" onclick="selectEditColor('#e53e3e')" style="background: #e53e3e;" data-color="#e53e3e"></button>
+                            <button type="button" class="color-option" onclick="selectEditColor('#9f7aea')" style="background: #9f7aea;" data-color="#9f7aea"></button>
+                            <button type="button" class="color-option" onclick="selectEditColor('#38b2ac')" style="background: #38b2ac;" data-color="#38b2ac"></button>
+                        </div>
+                    </div>
+                    <input type="hidden" id="editSelectedColor">
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="primary-btn">💾 Update Category</button>
+                    <button type="button" class="secondary-btn" onclick="closeModal('editCategoryModal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Customer Modal -->
+    <div id="addCustomerModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>👤 Add New Customer</h3>
+                <span class="close-btn" onclick="closeModal('addCustomerModal')">&times;</span>
+            </div>
+            <form id="addCustomerForm" onsubmit="addCustomer(event)">
+                <div class="form-group">
+                    <label>Customer Name *</label>
+                    <input type="text" id="customerName" placeholder="Enter customer name" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number *</label>
+                    <input type="tel" id="customerPhone" placeholder="Enter 10-digit phone number" required>
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="customerEmail" placeholder="Enter email (optional)">
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <textarea id="customerAddress" placeholder="Enter address (optional)" rows="3"></textarea>
+                </div>
+                <button type="submit" class="primary-btn full-width">➕ Add Customer</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
+
