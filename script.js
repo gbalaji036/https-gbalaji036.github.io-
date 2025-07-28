@@ -1,4 +1,4 @@
-// Enhanced Application State for SuperMart POS with all features
+// Enhanced Application State for SuperMart POS with all features and proper store info
 let appState = {
     currentSection: 'welcome',
     billCounter: 1001,
@@ -141,11 +141,19 @@ let appState = {
         total: 0
     },
     selectedWeightProduct: null,
+    // Enhanced UPI Settings with complete store information
     upiSettings: {
-        storeUpiId: 'supermart@paytm',
-        storeName: 'SuperMart',
-        storeAddress: 'Your Store Address Here',
-        storePhone: '+91-9876543210'
+        storeUpiId: 'yourstore@paytm',
+        storeName: 'Your Store Name',
+        storeAddress: 'Your Complete Store Address, City, State - PIN',
+        storePhone: '+91-XXXXXXXXXX',
+        storeEmail: 'yourstore@email.com',
+        storeWebsite: 'www.yourstore.com',
+        gstNumber: 'XXXXXXXXXXXX',
+        fssaiLicense: 'XXXXXXXXXXXXXX',
+        storeTagline: 'Your Neighborhood Supermarket',
+        storeOwner: 'Store Owner Name',
+        businessHours: '9:00 AM - 10:00 PM'
     }
 };
 
@@ -941,8 +949,8 @@ function processSale() {
     const emailReceipt = document.getElementById('emailReceipt').checked;
     
     // Update UPI settings from form
-    appState.upiSettings.storeUpiId = document.getElementById('storeUpiId').value || 'supermart@paytm';
-    appState.upiSettings.storeName = document.getElementById('storeName').value || 'SuperMart';
+    appState.upiSettings.storeUpiId = document.getElementById('storeUpiId').value || appState.upiSettings.storeUpiId;
+    appState.upiSettings.storeName = document.getElementById('storeName').value || appState.upiSettings.storeName;
     
     // Update product stock/weight
     appState.currentBill.items.forEach(item => {
@@ -1008,7 +1016,7 @@ function processSale() {
     saveDataToStorage();
 }
 
-// Generate PDF Receipt with QR Code
+// Enhanced PDF Receipt Generation with complete store information
 async function generatePDFReceipt(sale) {
     try {
         const { jsPDF } = window.jspdf;
@@ -1017,49 +1025,85 @@ async function generatePDFReceipt(sale) {
         const customer = appState.customers.find(c => c.id === sale.customerId);
         const receiptDate = new Date(sale.timestamp).toLocaleDateString();
         const receiptTime = new Date(sale.timestamp).toLocaleTimeString();
+        const settings = appState.upiSettings;
         
         // Set font
         pdf.setFont('helvetica');
         
-        // Header
-        pdf.setFontSize(20);
+        // Header with store branding
+        pdf.setFontSize(22);
         pdf.setTextColor(0, 102, 204);
-        pdf.text('🏪 SUPERMART POS SYSTEM', 20, 20);
+        pdf.text(`🏪 ${settings.storeName.toUpperCase()}`, 20, 20);
         
         pdf.setFontSize(12);
         pdf.setTextColor(0, 0, 0);
-        pdf.text('Your Neighborhood Supermarket', 20, 30);
-        pdf.text('Address: ' + (appState.upiSettings.storeAddress || 'Store Address Here'), 20, 35);
-        pdf.text('Phone: ' + (appState.upiSettings.storePhone || '+91-9876543210'), 20, 40);
+        pdf.text(settings.storeTagline, 20, 30);
+        
+        // Store Information
+        let yPos = 40;
+        pdf.setFontSize(10);
+        pdf.text(`Address: ${settings.storeAddress}`, 20, yPos);
+        yPos += 5;
+        pdf.text(`Phone: ${settings.storePhone}`, 20, yPos);
+        yPos += 5;
+        if (settings.storeEmail) {
+            pdf.text(`Email: ${settings.storeEmail}`, 20, yPos);
+            yPos += 5;
+        }
+        if (settings.storeWebsite) {
+            pdf.text(`Website: ${settings.storeWebsite}`, 20, yPos);
+            yPos += 5;
+        }
+        
+        // License Information
+        if (settings.gstNumber) {
+            pdf.text(`GST No: ${settings.gstNumber}`, 20, yPos);
+            yPos += 5;
+        }
+        if (settings.fssaiLicense) {
+            pdf.text(`FSSAI License: ${settings.fssaiLicense}`, 20, yPos);
+            yPos += 5;
+        }
         
         // Receipt details
-        pdf.setFontSize(14);
+        yPos += 10;
+        pdf.setFontSize(16);
         pdf.setTextColor(51, 51, 51);
-        pdf.text('RECEIPT #' + sale.id, 20, 55);
+        pdf.text(`RECEIPT #${sale.id}`, 20, yPos);
+        
         pdf.setFontSize(10);
-        pdf.text('Date: ' + receiptDate + ' | Time: ' + receiptTime, 20, 62);
+        pdf.setTextColor(0, 0, 0);
+        yPos += 8;
+        pdf.text(`Date: ${receiptDate} | Time: ${receiptTime}`, 20, yPos);
         
         // Customer info
-        let yPos = 75;
+        yPos += 15;
         pdf.setFontSize(11);
-        pdf.text('Customer: ' + (customer ? customer.name : 'Walk-in Customer'), 20, yPos);
+        pdf.text(`Customer: ${customer ? customer.name : 'Walk-in Customer'}`, 20, yPos);
         if (customer && customer.phone) {
             yPos += 7;
-            pdf.text('Phone: ' + customer.phone, 20, yPos);
+            pdf.text(`Phone: ${customer.phone}`, 20, yPos);
+        }
+        if (customer && customer.email) {
+            yPos += 7;
+            pdf.text(`Email: ${customer.email}`, 20, yPos);
         }
         
         // Items header
         yPos += 15;
-        pdf.setFontSize(10);
+        pdf.setFontSize(12);
+        pdf.setTextColor(0, 102, 204);
         pdf.text('ITEMS PURCHASED:', 20, yPos);
         
         // Draw line
         yPos += 5;
+        pdf.setLineWidth(0.5);
         pdf.line(20, yPos, 190, yPos);
         
         // Items
         yPos += 10;
         pdf.setFontSize(9);
+        pdf.setTextColor(0, 0, 0);
         
         sale.items.forEach((item, index) => {
             if (yPos > 250) { // Check if we need a new page
@@ -1067,47 +1111,49 @@ async function generatePDFReceipt(sale) {
                 yPos = 20;
             }
             
-            pdf.text((index + 1) + '. ' + item.name, 20, yPos);
+            pdf.text(`${index + 1}. ${item.name}`, 20, yPos);
             yPos += 5;
             
             if (item.pricingType === 'unit') {
-                pdf.text('   ' + item.quantity + ' units × ₹' + item.pricePerUnit + ' = ₹' + item.totalPrice.toFixed(2), 25, yPos);
+                pdf.text(`   📦 ${item.quantity} units × ₹${item.pricePerUnit} = ₹${item.totalPrice.toFixed(2)}`, 25, yPos);
             } else {
-                pdf.text('   ' + item.displayWeight + ' × ₹' + item.pricePerKg + '/kg = ₹' + item.totalPrice.toFixed(2), 25, yPos);
+                pdf.text(`   ⚖️ ${item.displayWeight} × ₹${item.pricePerKg}/kg = ₹${item.totalPrice.toFixed(2)}`, 25, yPos);
             }
             yPos += 10;
         });
         
-        // Totals
-        yPos += 5;
+        // Totals section
+        yPos += 10;
         pdf.line(20, yPos, 190, yPos);
         yPos += 10;
         
         pdf.setFontSize(10);
-        pdf.text('Subtotal: ₹' + sale.subtotal.toFixed(2), 120, yPos);
+        pdf.text(`Subtotal: ₹${sale.subtotal.toFixed(2)}`, 120, yPos);
         yPos += 7;
-        pdf.text('GST (5%): ₹' + sale.tax.toFixed(2), 120, yPos);
+        pdf.text(`CGST (2.5%): ₹${(sale.tax/2).toFixed(2)}`, 120, yPos);
+        yPos += 7;
+        pdf.text(`SGST (2.5%): ₹${(sale.tax/2).toFixed(2)}`, 120, yPos);
         yPos += 7;
         pdf.line(120, yPos, 190, yPos);
         yPos += 7;
         
-        pdf.setFontSize(12);
+        pdf.setFontSize(14);
         pdf.setTextColor(0, 102, 204);
-        pdf.text('TOTAL: ₹' + sale.total.toFixed(2), 120, yPos);
+        pdf.text(`TOTAL: ₹${sale.total.toFixed(2)}`, 120, yPos);
         
         pdf.setFontSize(10);
         pdf.setTextColor(0, 0, 0);
         yPos += 10;
-        pdf.text('Payment Method: ' + sale.paymentMethod.toUpperCase(), 120, yPos);
+        pdf.text(`Payment Method: ${sale.paymentMethod.toUpperCase()}`, 120, yPos);
         
         // Add QR Code if UPI payment and option is selected
         if (sale.receiptOptions.includeQR && (sale.paymentMethod === 'upi' || document.getElementById('includeQR').checked)) {
             yPos += 15;
             await addUPIQRCodeToPDF(pdf, sale, yPos);
-            yPos += 70; // Space for QR code
+            yPos += 80; // Space for QR code
         }
         
-        // Footer
+        // Enhanced Footer
         yPos += 20;
         if (yPos > 270) {
             pdf.addPage();
@@ -1116,14 +1162,29 @@ async function generatePDFReceipt(sale) {
         
         pdf.setFontSize(10);
         pdf.setTextColor(102, 102, 102);
-        pdf.text('Thank you for shopping with us!', 20, yPos);
+        pdf.text(`Thank you for shopping with ${settings.storeName}!`, 20, yPos);
         yPos += 7;
-        pdf.text('Visit again for fresh products and great deals!', 20, yPos);
+        pdf.text('Visit us again for fresh products and great deals!', 20, yPos);
         yPos += 7;
-        pdf.text('Follow us for daily updates and offers', 20, yPos);
+        if (settings.businessHours) {
+            pdf.text(`Store Hours: ${settings.businessHours}`, 20, yPos);
+            yPos += 7;
+        }
+        pdf.text('Follow us on social media for daily offers!', 20, yPos);
+        
+        // Owner signature line
+        if (settings.storeOwner) {
+            yPos += 15;
+            pdf.setFontSize(8);
+            pdf.text('_________________________', 140, yPos);
+            yPos += 5;
+            pdf.text(`${settings.storeOwner}`, 140, yPos);
+            yPos += 3;
+            pdf.text('Store Manager/Owner', 140, yPos);
+        }
         
         // Save and download PDF
-        const pdfName = `Receipt_${sale.id}_${receiptDate.replace(/\//g, '-')}.pdf`;
+        const pdfName = `Receipt_${settings.storeName.replace(/\s+/g, '_')}_${sale.id}_${receiptDate.replace(/\//g, '-')}.pdf`;
         pdf.save(pdfName);
         
         showNotification(`📄 PDF Receipt generated successfully!\nSaved as: ${pdfName}`, 'success');
@@ -1135,7 +1196,7 @@ async function generatePDFReceipt(sale) {
     }
 }
 
-// Add UPI QR Code to PDF
+// Enhanced UPI QR Code generation
 async function addUPIQRCodeToPDF(pdf, sale, yPos) {
     try {
         const upiUrl = createUPIUrl(sale.total);
@@ -1149,23 +1210,26 @@ async function addUPIQRCodeToPDF(pdf, sale, yPos) {
             }
         });
         
-        pdf.setFontSize(11);
+        pdf.setFontSize(12);
         pdf.setTextColor(0, 102, 204);
-        pdf.text('📱 Scan to Pay with UPI:', 20, yPos);
+        pdf.text('📱 SCAN TO PAY WITH UPI', 20, yPos);
         
+        // Add QR code
         pdf.addImage(qrCodeDataUrl, 'PNG', 20, yPos + 5, 50, 50);
         
+        // QR code details
         pdf.setFontSize(9);
         pdf.setTextColor(0, 0, 0);
-        pdf.text('UPI ID: ' + appState.upiSettings.storeUpiId, 80, yPos + 15);
-        pdf.text('Amount: ₹' + sale.total.toFixed(2), 80, yPos + 25);
-        pdf.text('Merchant: ' + appState.upiSettings.storeName, 80, yPos + 35);
+        pdf.text(`UPI ID: ${appState.upiSettings.storeUpiId}`, 80, yPos + 15);
+        pdf.text(`Amount: ₹${sale.total.toFixed(2)}`, 80, yPos + 25);
+        pdf.text(`Merchant: ${appState.upiSettings.storeName}`, 80, yPos + 35);
         
+        // Instructions
         pdf.setFontSize(8);
         pdf.setTextColor(102, 102, 102);
-        pdf.text('• Scan QR with any UPI app', 80, yPos + 45);
-        pdf.text('• Verify amount and merchant name', 80, yPos + 50);
-        pdf.text('• Complete payment', 80, yPos + 55);
+        pdf.text('• Scan QR with any UPI app (PhonePe, GPay, Paytm)', 80, yPos + 45);
+        pdf.text('• Verify amount and merchant name before payment', 80, yPos + 50);
+        pdf.text('• Complete payment and show confirmation', 80, yPos + 55);
         
     } catch (error) {
         console.error('Error adding QR code to PDF:', error);
@@ -1181,26 +1245,36 @@ function createUPIUrl(amount) {
     const merchantName = appState.upiSettings.storeName;
     const transactionRef = 'TXN' + Date.now();
     
-    const upiUrl = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(merchantName)}&am=${amount.toFixed(2)}&cu=INR&tn=SuperMart%20Purchase&tr=${transactionRef}`;
+    const upiUrl = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(merchantName)}&am=${amount.toFixed(2)}&cu=INR&tn=Purchase%20from%20${encodeURIComponent(merchantName)}&tr=${transactionRef}`;
     
     return upiUrl;
 }
 
-// Fallback text receipt with QR code display
+// Enhanced text receipt with complete store info
 function generateTextReceipt(sale) {
     const customer = appState.customers.find(c => c.id === sale.customerId);
     const receiptDate = new Date(sale.timestamp).toLocaleDateString();
     const receiptTime = new Date(sale.timestamp).toLocaleTimeString();
+    const settings = appState.upiSettings;
     
     let receiptText = `
-🏪 SUPERMART POS SYSTEM
+🏪 ${settings.storeName.toUpperCase()}
+${settings.storeTagline}
 ========================
+📍 ${settings.storeAddress}
+📞 ${settings.storePhone}
+${settings.storeEmail ? `✉️ ${settings.storeEmail}` : ''}
+${settings.gstNumber ? `GST: ${settings.gstNumber}` : ''}
+${settings.fssaiLicense ? `FSSAI: ${settings.fssaiLicense}` : ''}
+========================
+
 📄 RECEIPT #${sale.id}
 📅 Date: ${receiptDate}
 ⏰ Time: ${receiptTime}
 
 👤 Customer: ${customer ? customer.name : 'Walk-in Customer'}
-${customer ? `📞 Phone: ${customer.phone}` : ''}
+${customer && customer.phone ? `📞 Phone: ${customer.phone}` : ''}
+${customer && customer.email ? `✉️ Email: ${customer.email}` : ''}
 ========================
 
 🛒 ITEMS PURCHASED:
@@ -1220,7 +1294,8 @@ ${customer ? `📞 Phone: ${customer.phone}` : ''}
 ========================
 💰 BILL SUMMARY:
 Subtotal: ₹${sale.subtotal.toFixed(2)}
-GST (5%): ₹${sale.tax.toFixed(2)}
+CGST (2.5%): ₹${(sale.tax/2).toFixed(2)}
+SGST (2.5%): ₹${(sale.tax/2).toFixed(2)}
 ------------------------
 💳 TOTAL: ₹${sale.total.toFixed(2)}
 Payment: ${sale.paymentMethod.toUpperCase()}
@@ -1230,20 +1305,22 @@ Payment: ${sale.paymentMethod.toUpperCase()}
     if (sale.receiptOptions.includeQR && (sale.paymentMethod === 'upi' || document.getElementById('includeQR').checked)) {
         receiptText += `
 📱 UPI PAYMENT DETAILS:
-UPI ID: ${appState.upiSettings.storeUpiId}
+UPI ID: ${settings.storeUpiId}
 Amount: ₹${sale.total.toFixed(2)}
-Merchant: ${appState.upiSettings.storeName}
+Merchant: ${settings.storeName}
 
 QR Code will be displayed below...
+========================
 `;
     }
 
     receiptText += `
-🙏 Thank you for shopping with us!
-💡 Visit again for fresh products!
+🙏 Thank you for shopping with ${settings.storeName}!
+💡 Visit us again for fresh products and great deals!
+${settings.businessHours ? `🕒 Store Hours: ${settings.businessHours}` : ''}
 
-🌟 Follow us for daily deals!
-SuperMart - Your neighborhood store
+🌟 Follow us on social media for daily offers!
+${settings.storeOwner ? `\nWith regards,\n${settings.storeOwner}\nStore Manager/Owner` : ''}
 ========================
     `;
     
@@ -1268,6 +1345,7 @@ function showUPIQRCodeModal(amount) {
                     <p><strong>UPI ID:</strong> ${appState.upiSettings.storeUpiId}</p>
                     <p><strong>Merchant:</strong> ${appState.upiSettings.storeName}</p>
                     <p><strong>Amount:</strong> ₹${amount.toFixed(2)}</p>
+                    <p><strong>Note:</strong> Verify details before payment</p>
                 </div>
             </div>
             <div class="pdf-actions">
@@ -1312,7 +1390,7 @@ function downloadQRCode() {
     const canvas = document.getElementById('upiQRCode');
     if (canvas) {
         const link = document.createElement('a');
-        link.download = `UPI_QR_${new Date().getTime()}.png`;
+        link.download = `UPI_QR_${appState.upiSettings.storeName.replace(/\s+/g, '_')}_${new Date().getTime()}.png`;
         link.href = canvas.toDataURL();
         link.click();
         showNotification('📱 QR Code downloaded successfully!', 'success');
@@ -1335,6 +1413,7 @@ function clearBill() {
     updateBillDisplay();
     
     document.querySelector('input[name="paymentMethod"][value="cash"]').checked = true;
+    toggleUPISettings();
     
     showNotification('🧹 Bill cleared successfully!', 'info');
 }
@@ -2150,7 +2229,7 @@ function generateCategoryPerformance() {
         const categoryDiv = document.createElement('div');
         categoryDiv.style.cssText = 'margin-bottom: 1rem; padding: 1rem; background: #e6fffa; border-radius: 8px; border-left: 4px solid #38b2ac;';
         
-        categoryDiv.innerHTML = `
+                categoryDiv.innerHTML = `
             <div>
                 <div style="font-weight: bold; color: #234e52; margin-bottom: 0.5rem;">📂 ${category}</div>
                 <div style="font-size: 0.9rem; color: #2d3748;">
@@ -2219,7 +2298,6 @@ function showNotification(message, type = 'info') {
             icon = '🔔 ';
     }
     
-    // Continuing from where the notification function was cut off...
     notification.innerHTML = `
         <div style="display: flex; align-items: flex-start; gap: 0.5rem;">
             <span style="font-size: 1.2rem;">${icon}</span>
@@ -2274,8 +2352,12 @@ function loadInitialData() {
             }
             if (parsedData.upiSettings) {
                 appState.upiSettings = {...appState.upiSettings, ...parsedData.upiSettings};
-                document.getElementById('storeUpiId').value = appState.upiSettings.storeUpiId;
-                document.getElementById('storeName').value = appState.upiSettings.storeName;
+                if (document.getElementById('storeUpiId')) {
+                    document.getElementById('storeUpiId').value = appState.upiSettings.storeUpiId;
+                }
+                if (document.getElementById('storeName')) {
+                    document.getElementById('storeName').value = appState.upiSettings.storeName;
+                }
             }
             if (parsedData.billCounter) {
                 appState.billCounter = parsedData.billCounter;
@@ -2322,8 +2404,9 @@ function exportData() {
             customers: appState.customers,
             sales: appState.sales,
             categories: appState.categories,
+            storeSettings: appState.upiSettings,
             exportDate: new Date().toISOString(),
-            version: '1.0'
+            version: '2.0'
         };
         
         const dataStr = JSON.stringify(dataToExport, null, 2);
@@ -2331,7 +2414,7 @@ function exportData() {
         
         const link = document.createElement('a');
         link.href = URL.createObjectURL(dataBlob);
-        link.download = `supermart-backup-${new Date().toISOString().split('T')[0]}.json`;
+        link.download = `${appState.upiSettings.storeName.replace(/\s+/g, '_')}_backup_${new Date().toISOString().split('T')[0]}.json`;
         link.click();
         
         showNotification('📤 Data exported successfully!', 'success');
@@ -2343,6 +2426,7 @@ function exportData() {
 
 // Event Listeners Setup
 function setupEventListeners() {
+    // Modal click-outside-to-close
     document.addEventListener('click', function(event) {
         if (event.target.classList.contains('modal')) {
             const modalId = event.target.id;
@@ -2350,7 +2434,9 @@ function setupEventListeners() {
         }
     });
     
+    // Keyboard shortcuts
     document.addEventListener('keydown', function(event) {
+        // Escape key functionality
         if (event.key === 'Escape') {
             document.querySelectorAll('.modal:not(.hidden)').forEach(modal => {
                 closeModal(modal.id);
@@ -2363,6 +2449,7 @@ function setupEventListeners() {
             document.getElementById('productSuggestions').innerHTML = '';
         }
         
+        // Enter key functionality
         if (event.key === 'Enter') {
             const activeElement = document.activeElement;
             
@@ -2381,6 +2468,7 @@ function setupEventListeners() {
             }
         }
         
+        // Ctrl/Cmd shortcuts
         if (event.ctrlKey || event.metaKey) {
             switch(event.key) {
                 case 's':
@@ -2398,9 +2486,14 @@ function setupEventListeners() {
                         showAddCategoryForm();
                     }
                     break;
+                case 'e':
+                    event.preventDefault();
+                    exportData();
+                    break;
             }
         }
         
+        // Function key navigation
         switch(event.key) {
             case 'F1':
                 event.preventDefault();
@@ -2429,14 +2522,17 @@ function setupEventListeners() {
         }
     });
     
+    // Auto-save every 2 minutes
     setInterval(() => {
         saveDataToStorage();
     }, 120000);
     
+    // Save on page unload
     window.addEventListener('beforeunload', function() {
         saveDataToStorage();
     });
     
+    // Online/Offline status
     window.addEventListener('online', function() {
         showNotification('🌐 Connection restored!', 'success');
     });
@@ -2445,7 +2541,7 @@ function setupEventListeners() {
         showNotification('📴 Working offline - data will be saved locally', 'warning');
     });
     
-    // Initialize tooltips and help system
+    // Initialize help system
     initializeHelpSystem();
 }
 
@@ -2462,6 +2558,7 @@ function initializeHelpSystem() {
 • F6 - Reports
 • Ctrl+S - Save Data
 • Ctrl+N - Add New (context-aware)
+• Ctrl+E - Export Data
 • Escape - Close modals/Clear
 
 🛒 Billing Tips:
@@ -2489,6 +2586,12 @@ function initializeHelpSystem() {
 • Itemized billing with tax calculations
 • Download and print capabilities
 
+🏪 Store Configuration:
+• Update store information in UPI settings
+• Customize PDF receipt headers and footers
+• Add GST number, FSSAI license, and other details
+• Professional store branding in all receipts
+
 💡 Pro Tips:
 • Data auto-saves every 2 minutes to prevent loss
 • Low stock alerts appear on dashboard
@@ -2504,11 +2607,12 @@ function initializeHelpSystem() {
 • Category performance tracking
 • Multi-format barcode support
 • Real-time inventory updates
+• Professional PDF receipts with QR codes
     `;
     
     window.superMartHelp = helpText;
     
-    // Add help button to navigation (optional)
+    // Add help button
     const helpButton = document.createElement('button');
     helpButton.innerHTML = '❓ Help';
     helpButton.className = 'help-btn';
@@ -2559,6 +2663,7 @@ window.superMartAPI = {
         }
     },
     getStats: () => ({
+        storeName: appState.upiSettings.storeName,
         products: appState.products.length,
         customers: appState.customers.length,
         sales: appState.sales.length,
@@ -2584,6 +2689,9 @@ window.superMartAPI = {
             if (data.customers) appState.customers = data.customers;
             if (data.categories) appState.categories = data.categories;
             if (data.sales) appState.sales = data.sales;
+            if (data.storeSettings || data.upiSettings) {
+                appState.upiSettings = {...appState.upiSettings, ...(data.storeSettings || data.upiSettings)};
+            }
             
             saveDataToStorage();
             updateAllCategoryDropdowns();
@@ -2594,13 +2702,18 @@ window.superMartAPI = {
             showNotification('❌ Error importing data! Check console for details.', 'error');
             return false;
         }
+    },
+    updateStoreInfo: (storeInfo) => {
+        appState.upiSettings = {...appState.upiSettings, ...storeInfo};
+        saveDataToStorage();
+        showNotification('🏪 Store information updated successfully!', 'success');
     }
 };
 
 // Console welcome message and initialization
 console.log(`
-🏪 SuperMart POS System v2.0 - Complete Edition
-===============================================
+🏪 SuperMart POS System v2.0 - Complete Edition with Enhanced Store Features
+=========================================================================
 ✅ Successfully loaded with all features:
 
 🎯 Core Features:
@@ -2613,6 +2726,8 @@ console.log(`
 • Sales analytics and reporting
 
 🚀 Advanced Features:
+• Enhanced store information management
+• Professional PDF receipts with complete branding
 • Auto-save functionality
 • Data export/import
 • Offline capability
@@ -2621,10 +2736,11 @@ console.log(`
 • Responsive design
 • Category templates
 
-💡 Developer Tools:
+💡 Developer & Store Management Tools:
 • Type superMartAPI.showHelp() for user guide
 • Type superMartAPI.getStats() for system statistics
 • Type superMartAPI.exportData() to backup data
+• Type superMartAPI.updateStoreInfo({...}) to update store details
 • Type superMartAPI.clearAllData() to reset (careful!)
 
 🛠️ Technical Info:
@@ -2632,6 +2748,7 @@ console.log(`
 • Auto-save: Every 2 minutes
 • Libraries: jsPDF, QRCode.js
 • Responsive: Mobile & Desktop ready
+• Store Branding: Complete PDF customization
 
 Ready for production use! 🎉✨
 `);
@@ -2639,18 +2756,14 @@ Ready for production use! 🎉✨
 // Final initialization
 console.log('🚀 SuperMart POS System fully initialized and ready for use!');
 
-// Initialize welcome screen or redirect to dashboard based on stored preference
+// Initialize welcome screen based on usage history
 const hasUsedBefore = localStorage.getItem('superMartPOSData');
-if (hasUsedBefore) {
-    // Show a subtle welcome back message
-    setTimeout(() => {
+setTimeout(() => {
+    if (hasUsedBefore) {
         showNotification('👋 Welcome back to SuperMart POS!\nAll your data has been restored.', 'info');
-    }, 1000);
-} else {
-    // First time user - show welcome
-    setTimeout(() => {
+    } else {
         showNotification('🎉 Welcome to SuperMart POS!\nYour complete retail management solution is ready.\n\nPress F1-F6 for quick navigation or click ❓ Help for guidance.', 'success');
-    }, 1500);
-}
+    }
+}, 1000);
 
 
