@@ -143,11 +143,11 @@ let appState = {
     selectedWeightProduct: null,
     // Enhanced UPI Settings with complete store information
     upiSettings: {
-        storeUpiId: 'yourstore@paytm',
-        storeName: 'Your Store Name',
-        storeAddress: 'Your Complete Store Address, City, State - PIN',
-        storePhone: '+91-XXXXXXXXXX',
-        storeEmail: 'yourstore@email.com',
+        storeUpiId: '9483993768@ybl',
+        storeName: 'SM MART',
+        storeAddress: 'nti layout , City, State - PIN',
+        storePhone: '+91-9483993768',
+        storeEmail: 'balajikumarvarma549@email.com',
         storeWebsite: 'www.yourstore.com',
         gstNumber: 'XXXXXXXXXXXX',
         fssaiLicense: 'XXXXXXXXXXXXXX',
